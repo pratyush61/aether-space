@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>AETHER | Travel beyond the horizon</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600&family=Unbounded:wght@400;600;800&display=swap" rel="stylesheet" />
+<style>
+:root{--bg:#05060d;--fg:#eef0ff;--mut:#8e93b8;--g1:#7c5cff;--g2:#00e5ff;--g3:#ff4d8d;color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{background:radial-gradient(120% 80% at 50% 0,#0d0f24,var(--bg) 60%);color:var(--fg);font-family:Manrope,sans-serif;overflow-x:hidden;cursor:auto}
+a{color:inherit;text-decoration:none}
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+.grain{position:fixed;inset:-50%;z-index:5;pointer-events:none;opacity:.07;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:gr 1s steps(4) infinite}
+@keyframes gr{25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}}
+.loader{position:fixed;inset:0;z-index:200;background:var(--bg);display:grid;place-items:center;font-family:Unbounded;font-size:clamp(60px,12vw,160px);font-weight:800}
+.loader i{position:absolute;bottom:0;left:0;height:4px;width:100%;background:linear-gradient(90deg,var(--g1),var(--g2),var(--g3))}
+.cursor{position:fixed;top:0;left:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;mix-blend-mode:difference;z-index:150;pointer-events:none;display:none}
+@media(hover:hover){body{cursor:none}a,button{cursor:none}.cursor{display:block}}
+nav{position:fixed;inset:0 0 auto;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:calc(22px + env(safe-area-inset-top,0px)) 6vw 22px;mix-blend-mode:difference}
+.logo{font-family:Unbounded;font-weight:800;letter-spacing:.3em;font-size:15px}
+nav div{display:flex;gap:34px;align-items:center;font-size:14px;font-weight:600}
+.pill{border:1px solid #fff;padding:10px 22px;border-radius:99px;transition:.3s}.pill:hover{background:#fff;color:#000}
+main{position:relative;z-index:2}
+section{position:relative}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 8vw}
+.eyebrow{font-size:12px;letter-spacing:.35em;text-transform:uppercase;color:var(--g2);margin-bottom:28px}
+h1,h2{font-family:Unbounded;font-weight:800;line-height:1.02;letter-spacing:-.02em}
+h1{font-size:clamp(40px,7.4vw,116px);max-width:11ch}
+h2{font-size:clamp(32px,4.6vw,72px)}
+.w{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.08em}.w>span{display:inline-block}
+.grad{background:linear-gradient(100deg,var(--g1),var(--g2) 50%,var(--g3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{margin-top:32px;max-width:46ch;color:var(--mut);font-size:clamp(16px,1.3vw,20px);line-height:1.7}
+.cue{position:absolute;bottom:34px;left:8vw;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--mut);display:flex;gap:14px;align-items:center}
+.cue b{width:1px;height:46px;background:linear-gradient(var(--g2),transparent);animation:dr 2s ease-in-out infinite;transform-origin:top}
+@keyframes dr{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+.chap{min-height:130vh;display:flex;align-items:center;padding:0 8vw}.chap.r{justify-content:flex-end}
+.chap>div{max-width:540px}
+.num{font-family:Unbounded;font-size:14px;color:var(--g2);letter-spacing:.2em;display:block;margin-bottom:22px}
+.chap p.rv{margin-top:28px;color:var(--mut);line-height:1.75;font-size:17px}
+.stats{display:flex;gap:40px;margin-top:44px}
+.stats b{display:block;font-family:Unbounded;font-size:clamp(30px,3.4vw,52px);font-weight:600}
+.stats span{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--mut)}
+.marquee{overflow:hidden;padding:7vh 0;white-space:nowrap;border-block:1px solid rgba(255,255,255,.1);backdrop-filter:blur(6px);background:rgba(5,6,13,.35)}
+.track{display:inline-block;font-family:Unbounded;font-weight:800;font-size:clamp(50px,9vw,150px);color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.55)}
+.track em{font-style:normal;color:var(--fg);-webkit-text-stroke:0}
+.dest{padding:20vh 8vw}
+.dest h2{max-width:14ch;margin-bottom:8vh}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.card{--c:#7c5cff;--c2:#00e5ff;position:relative;padding:44px 30px 36px;border-radius:26px;background:rgba(14,16,36,.55);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(14px);transform-style:preserve-3d;overflow:hidden}
+.card::after{content:"";position:absolute;inset:0;background:radial-gradient(260px circle at var(--mx,50%) var(--my,0),rgba(255,255,255,.14),transparent 60%);pointer-events:none}
+.orb{width:150px;height:150px;border-radius:50%;overflow:hidden;position:relative;margin:0 auto 34px;box-shadow:0 0 70px -8px var(--c);transform:translateZ(60px)}
+.orb::before{content:"";position:absolute;inset:-50%;background:conic-gradient(var(--c),#05060d,var(--c2),var(--c));animation:sp 9s linear infinite}
+.orb::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.55),transparent 38%,rgba(0,0,0,.65))}
+@keyframes sp{to{transform:rotate(360deg)}}
+.card h3{font-family:Unbounded;font-size:22px;margin-bottom:10px;transform:translateZ(40px)}
+.card p{color:var(--mut);font-size:15px;line-height:1.6;transform:translateZ(24px)}
+.card small{display:block;margin-top:22px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--c2)}
+.cta{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 8vw}
+.cta h2{font-size:clamp(36px,6.4vw,104px);max-width:12ch}
+.btn{display:inline-block;margin-top:54px;padding:24px 56px;border-radius:99px;font-weight:600;background:linear-gradient(100deg,var(--g1),var(--g2));color:#05060d;box-shadow:0 0 80px -10px var(--g2)}
+footer{position:relative;z-index:2;padding:30px 6vw calc(30px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--mut);border-top:1px solid rgba(255,255,255,.08)}
+@media(max-width:800px){
+ nav div a:not(.pill){display:none}
+ .chap,.chap.r{justify-content:flex-start;align-items:flex-end;padding-bottom:12vh}
+ .chap>div{background:rgba(5,6,13,.62);backdrop-filter:blur(12px);padding:26px;border-radius:20px}
+ .cards{grid-template-columns:1fr}.stats{gap:22px}.cue{display:none}
+}
+@media(prefers-reduced-motion:reduce){.grain,.orb::before,.cue b{animation:none}}
+</style>
+</head>
+<body>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="grain"></div>
+<div class="cursor"></div>
+<div class="loader"><span id="count">0</span><i></i></div>
+<nav><div class="logo">AETHER</div><div><a href="#world">The world</a><a href="#orbit">Orbits</a><a href="#reserve" class="pill">Reserve</a></div></nav>
+<main>
+<section class="hero">
+  <p class="eyebrow fade">Concept · Deep-space travel</p>
+  <h1 class="split hero-split" data-grad="2">Travel beyond the horizon</h1>
+  <p class="lead fade">Silent ships. Glass rings. A sky that has never seen a human shadow. Step aboard the first slow voyage to a world made of light.</p>
+  <div class="cue fade"><b></b>Scroll to fly</div>
+</section>
+
+<section class="chap r" id="world">
+  <div>
+    <span class="num rv">01 / THE WORLD</span>
+    <h2 class="split" data-grad="3">A world shaped by light</h2>
+    <p class="rv">Its surface bends and breathes with the star it orbits. Every dawn paints the planet a different colour, and no two travellers ever see the same sunrise.</p>
+    <div class="stats rv"><div><b data-v="9">0</b><span>Days of transit</span></div><div><b data-v="3">0</b><span>Glass moons</span></div><div><b data-v="24">0</b><span>Seats per voyage</span></div></div>
+  </div>
+</section>
+
+<div class="marquee"><div class="track">EXPLORE <em>✦</em> ORBIT <em>✦</em> LAND <em>✦</em> RETURN <em>✦</em> EXPLORE <em>✦</em> ORBIT <em>✦</em> LAND <em>✦</em> RETURN <em>✦</em></div></div>
+
+<section class="chap" id="ring">
+  <div>
+    <span class="num rv">02 / THE RING</span>
+    <h2 class="split" data-grad="2">Rings of silent glass</h2>
+    <p class="rv">Millions of crystal fragments drift in a perfect band. Our ships glide through it at walking speed, so you can hear the light ring against the hull.</p>
+  </div>
+</section>
+
+<section class="dest" id="orbit">
+  <h2 class="split" data-grad="2">Choose your orbit</h2>
+  <div class="cards">
+    <article class="card tilt rv" style="--c:#7c5cff;--c2:#00e5ff"><div class="orb"></div><h3>Halo Drift</h3><p>Float inside the ring and watch the planet turn beneath you.</p><small>3 days · Calm</small></article>
+    <article class="card tilt rv" style="--c:#ff4d8d;--c2:#ffb36b"><div class="orb"></div><h3>Ember Shelf</h3><p>Hover over the sunrise coast as the whole sky ignites.</p><small>6 days · Vivid</small></article>
+    <article class="card tilt rv" style="--c:#00d9a3;--c2:#3b7bff"><div class="orb"></div><h3>Tidal Veil</h3><p>Descend toward the glowing seas for the deepest view of all.</p><small>9 days · Bold</small></article>
+  </div>
+</section>
+
+<section class="cta" id="reserve">
+  <span class="num rv">03 / DEPARTURE</span>
+  <h2 class="split" data-grad="1">Your window opens soon</h2>
+  <a href="mailto:pratyushdubey202004@gmail.com" class="btn magnetic rv">Reserve a seat</a>
+</section>
+</main>
+<footer><span>AETHER · A design concept. Brand, voyages and figures are fictional.</span><span>Built by pratyush61</span></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+gsap.registerPlugin(ScrollTrigger);
+if(!reduce&&window.Lenis){const lenis=new Lenis({lerp:.085});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0)}
+
+// text splitting + reveals
+document.querySelectorAll('.split').forEach(el=>{const g=+(el.dataset.grad??-1);el.innerHTML=el.textContent.trim().split(/\s+/).map((w,i)=>`<span class="w"><span class="${i===g?'grad':''}">${w}</span></span>`).join(' ')});
+gsap.set('.split .w>span',{yPercent:115});gsap.set('.rv',{opacity:0,y:40});
+document.querySelectorAll('.split:not(.hero-split)').forEach(el=>ScrollTrigger.create({trigger:el,start:'top 88%',once:true,onEnter:()=>gsap.to(el.querySelectorAll('.w>span'),{yPercent:0,duration:1.1,stagger:.07,ease:'expo.out'})}));
+ScrollTrigger.batch('.rv',{start:'top 92%',once:true,onEnter:b=>gsap.to(b,{opacity:1,y:0,duration:1,stagger:.12,ease:'power3.out'})});
+document.querySelectorAll('[data-v]').forEach(el=>{const v=+el.dataset.v,o={n:0};ScrollTrigger.create({trigger:el,start:'top 92%',once:true,onEnter:()=>gsap.to(o,{n:v,duration:2,ease:'power2.out',onUpdate:()=>el.textContent=Math.round(o.n)})})});
+gsap.to('.track',{xPercent:-45,ease:'none',scrollTrigger:{trigger:'.marquee',start:'top bottom',end:'bottom top',scrub:true}});
+
+// 3D scene state, tweened by scroll
+const s={x:2,y:0,sc:1,amp:.15,rot:0,camZ:7,hue:0,ring:0,intro:0};
+let renderer,mx=0,my=0;
+try{
+ const cv=document.getElementById('gl');
+ renderer=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});
+ renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+ const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(45,1,.1,200);
+ const world=new THREE.Group();scene.add(world);
+ const cA=new THREE.Color(),cB=new THREE.Color(),tmp=new THREE.Color();
+ const U={uTime:{value:0},uAmp:{value:.15},uA:{value:cA},uB:{value:cB}};
+ const planet=new THREE.Mesh(new THREE.SphereGeometry(1.6,128,128),new THREE.ShaderMaterial({uniforms:U,
+  vertexShader:`uniform float uTime,uAmp;varying vec3 vN,vP;varying float vD;
+  void main(){vec3 p=position;float d=sin(p.x*2.3+uTime*.6)*sin(p.y*2.7+uTime*.5)*sin(p.z*2.1+uTime*.4);p+=normal*d*uAmp;
+  vN=normalize(normalMatrix*normal);vec4 mv=modelViewMatrix*vec4(p,1.);vP=-mv.xyz;vD=d;gl_Position=projectionMatrix*mv;}`,
+  fragmentShader:`uniform vec3 uA,uB;varying vec3 vN,vP;varying float vD;
+  void main(){vec3 n=normalize(vN);float f=pow(1.-max(dot(n,normalize(vP)),0.),2.6);float l=max(dot(n,normalize(vec3(.6,.8,.7))),0.);
+  vec3 col=mix(uA,uB,vD*.5+.5+l*.35);col*=.22+l*.95;col*=.92+.08*sin(vD*24.);col+=f*uB*1.5;gl_FragColor=vec4(col,1.);}`}));
+ world.add(planet);
+ const atm=new THREE.Mesh(new THREE.SphereGeometry(2,64,64),new THREE.ShaderMaterial({uniforms:{uB:{value:cB}},side:THREE.BackSide,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,
+  vertexShader:`varying vec3 vN;void main(){vN=normalize(normalMatrix*normal);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
+  fragmentShader:`uniform vec3 uB;varying vec3 vN;void main(){float i=pow(.66-dot(vN,vec3(0.,0.,1.)),3.);gl_FragColor=vec4(uB,1.)*i*1.6;}`}));
+ world.add(atm);
+ const N=7000,rp=new Float32Array(N*3);
+ for(let i=0;i<N;i++){const a=Math.random()*6.2832,r=2.7+Math.pow(Math.random(),1.5)*1.8;rp[i*3]=Math.cos(a)*r;rp[i*3+1]=(Math.random()-.5)*.07;rp[i*3+2]=Math.sin(a)*r}
+ const rg=new THREE.BufferGeometry();rg.setAttribute('position',new THREE.BufferAttribute(rp,3));
+ const rm=new THREE.PointsMaterial({size:.026,transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false});
+ const ring=new THREE.Points(rg,rm);ring.rotation.x=1.25;ring.rotation.z=.35;world.add(ring);
+ const sp=new Float32Array(3500*3);
+ for(let i=0;i<3500;i++){const r=25+Math.random()*50,t=Math.random()*6.2832,p=Math.acos(2*Math.random()-1);sp[i*3]=r*Math.sin(p)*Math.cos(t);sp[i*3+1]=r*Math.sin(p)*Math.sin(t);sp[i*3+2]=r*Math.cos(p)}
+ const sg=new THREE.BufferGeometry();sg.setAttribute('position',new THREE.BufferAttribute(sp,3));
+ const stars=new THREE.Points(sg,new THREE.PointsMaterial({size:.12,color:0xcfd6ff,transparent:true,opacity:.85,depthWrite:false}));scene.add(stars);
+ const P=[[0x6a4bff,0x00e5ff],[0xff4d8d,0xffb36b],[0x00d9a3,0x3b7bff]];
+ const size=()=>{renderer.setSize(innerWidth,innerHeight,false);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix()};size();addEventListener('resize',size);
+ addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
+ let cx=0,cy=0;
+ gsap.ticker.add(t=>{
+  const wide=innerWidth>800,i=Math.floor(s.hue),f=s.hue-i,a=P[i%3],b=P[(i+1)%3];
+  cA.set(a[0]).lerp(tmp.set(b[0]),f);cB.set(a[1]).lerp(tmp.set(b[1]),f);
+  rm.color.copy(cB);rm.opacity=.15+s.ring*.7;
+  U.uTime.value=t;U.uAmp.value=s.amp;
+  world.position.set(s.x*(wide?1:.2),s.y+(wide?0:.8),0);
+  world.scale.setScalar(Math.max(s.sc*s.intro*(wide?1:.78),.0001));
+  planet.rotation.y=t*.12+s.rot;ring.rotation.y=t*.04;stars.rotation.y=t*.008+s.rot*.04;stars.rotation.x=s.rot*.02;
+  cx+=(mx*.8-cx)*.05;cy+=(-my*.5-cy)*.05;
+  cam.position.set(cx,cy,s.camZ);cam.lookAt(0,0,0);
+  renderer.render(scene,cam);
+ });
+}catch(e){console.warn('WebGL unavailable',e)}
+
+// scroll choreography
+gsap.timeline({scrollTrigger:{trigger:'main',start:'top top',end:'bottom bottom',scrub:1.4}})
+ .to(s,{x:-2.1,sc:1.1,amp:.38,hue:1,rot:1.6,ring:.7,duration:1,ease:'power1.inOut'})
+ .to(s,{x:2.1,sc:1.35,amp:.55,hue:2,rot:3.4,ring:1,camZ:6,duration:1,ease:'power1.inOut'})
+ .to(s,{x:0,sc:.55,amp:.2,hue:2.6,rot:4.6,ring:.5,camZ:9,duration:1,ease:'power1.inOut'})
+ .to(s,{x:0,sc:1.5,amp:.32,hue:3,rot:6,ring:1,camZ:5.4,duration:1,ease:'power1.inOut'});
+
+// loader + intro
+const cnt=document.getElementById('count'),o={n:0};
+gsap.to(o,{n:100,duration:1.6,ease:'power2.inOut',onUpdate:()=>cnt.textContent=Math.round(o.n),onComplete:()=>
+ gsap.timeline().to('.loader',{yPercent:-100,duration:1.1,ease:'expo.inOut'})
+  .to(s,{intro:1,duration:2.6,ease:'expo.out'},'-=.6')
+  .to('.hero-split .w>span',{yPercent:0,duration:1.3,stagger:.1,ease:'expo.out'},'-=2.2')
+  .from('.hero .fade',{opacity:0,y:30,duration:1,stagger:.15},'-=1.2')});
+
+// tilt cards
+document.querySelectorAll('.tilt').forEach(c=>{
+ c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+  c.style.setProperty('--mx',x*100+'%');c.style.setProperty('--my',y*100+'%');
+  gsap.to(c,{rotationY:(x-.5)*16,rotationX:-(y-.5)*16,transformPerspective:900,duration:.5,ease:'power2.out'})});
+ c.addEventListener('pointerleave',()=>gsap.to(c,{rotationX:0,rotationY:0,duration:.8,ease:'elastic.out(1,.5)'}))});
+// magnetic button + cursor
+document.querySelectorAll('.magnetic').forEach(b=>{
+ b.addEventListener('pointermove',e=>{const r=b.getBoundingClientRect();gsap.to(b,{x:(e.clientX-r.left-r.width/2)*.35,y:(e.clientY-r.top-r.height/2)*.5,duration:.4})});
+ b.addEventListener('pointerleave',()=>gsap.to(b,{x:0,y:0,duration:1,ease:'elastic.out(1,.4)'}))});
+if(matchMedia('(hover:hover)').matches){const cu=document.querySelector('.cursor'),qx=gsap.quickTo(cu,'x',{duration:.25}),qy=gsap.quickTo(cu,'y',{duration:.25});
+ addEventListener('pointermove',e=>{qx(e.clientX);qy(e.clientY)});
+ document.querySelectorAll('a,.card').forEach(el=>{el.addEventListener('pointerenter',()=>gsap.to(cu,{scale:3.2,duration:.3}));el.addEventListener('pointerleave',()=>gsap.to(cu,{scale:1,duration:.3}))})}
+</script>
+</body>
+</html>
